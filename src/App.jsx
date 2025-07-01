@@ -1,4 +1,5 @@
 import Cards from "./assets/Cards"
+import Carello from "./carello"
 
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
 
   return (
     <>
-
+    <Carello/>
     <Cards/>
     </>
   )
