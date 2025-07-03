@@ -14,14 +14,38 @@ const Cards = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const [productsInCard, setProductsInCard] = useState([])
-    const addProducttoCard =(product) =>{
+    const addProducttoCard = (product) => {
         const newProduct = {
             ...product,
-                Qtn:1
+            Qtn:  1
+            
         }
-        setProductsInCard([...productsInCard,newProduct])
+       
+        console.log(data.product)
+        setProductsInCard([...productsInCard, newProduct])
     }
 
+    // const onQuantity = (productid, quantity) => {
+    //     setProductsInCard((oldState) => {
+    //         const productFound = oldState.find((item) => item.id == productid)
+
+    //         if (productFound !== -1) {
+    //             Qtn = quantity + 1
+    //             oldState[productsInCard].quantity = quantity
+    //         }
+    //         return [...oldState]
+    //     })
+
+    // }
+
+
+    const handleCardRemove = (productid) => {
+        setProductsInCard(allProduct => allProduct.filter(item => item.id !== productid.id ))
+         const total = allProduct.reduce((acc,current) => acc + current.price,0)
+           
+    } 
+   
+   
     const fetchData = async () => {
         if (!loading) setLoading()
         if (error) setError()
@@ -54,7 +78,7 @@ const Cards = () => {
 
     return (
         <>
-            <CardChopping  products={productsInCard} />
+            <CardChopping products={productsInCard}   handleCardRemove={handleCardRemove}/>
             <div className='flex-row  text-wrap flex -mt-96  m-4 gap-2 '>
                 {/* <div className="text-center  font-medium ml-1/2">Products</div> */}
                 <div className="flex flex-wrap ml-20 -mt-10 p-20 boder-black w-[900px]  gap-4 ">
@@ -73,7 +97,7 @@ const Cards = () => {
                                 <div> <svg className="pt-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"></path>
                                 </svg></div>
-                                <button onClick={()=>addProducttoCard(product)} >Add to cart</button>
+                                <button onClick={() => addProducttoCard(product)} >Add to cart</button>
 
                             </div>
                         </div>
