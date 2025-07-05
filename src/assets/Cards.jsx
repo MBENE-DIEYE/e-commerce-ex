@@ -5,7 +5,7 @@ import CardChopping from "../CardChopping"
 // import Carello from "../carello"
 
 
-const Cards = () => {
+const Cards = (products) => {
 
     const API_URL = "https://dummyjson.com/products"
 
@@ -14,37 +14,55 @@ const Cards = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const [productsInCard, setProductsInCard] = useState([])
-    const addProducttoCard = (product) => {
-        const newProduct = {
-            ...product,
-            Qtn:  1
-            
+
+ const onQuantity = (product) => {
+       const quantity = productsInCard.find(item =>item.id ==product.id)?.quantity
+        if(quantity === undefined){
+            return 0
         }
-       
-        console.log(data.product)
-        setProductsInCard([...productsInCard, newProduct])
+         return quantity
     }
 
-    // const onQuantity = (productid, quantity) => {
-    //     setProductsInCard((oldState) => {
-    //         const productFound = oldState.find((item) => item.id == productid)
+    const addProducttoCard = (product) => {
+         const newProduct = {
+            ...product,
+            quantity:  1
+            
+        }
+        const quantity = onQuantity(product)
+        if(quantity == 0){
 
-    //         if (productFound !== -1) {
-    //             Qtn = quantity + 1
-    //             oldState[productsInCard].quantity = quantity
-    //         }
-    //         return [...oldState]
-    //     })
+              setProductsInCard([...productsInCard, newProduct])
+        }
+        else{
+           setProductsInCard(allProduct =>allProduct.map(item => item.id == product.id ? {...item ,quantity: item.quantity + 1}
+                : item
+            ))
+        }
+       
+     
+    //    console.log(quantity)
+        console.log(data.product)
+      
+    }
 
-    // }
+   
 
 
     const handleCardRemove = (productid) => {
-        setProductsInCard(allProduct => allProduct.filter(item => item.id !== productid.id ))
-         const total = allProduct.reduce((acc,current) => acc + current.price,0)
+         const quantity = onQuantity(productid)
+        if(quantity == 1)
+      {
+          setProductsInCard(allProduct => allProduct.filter(item => item.id !== productid.id ))
+      }
+         else{
+             setProductsInCard(allProduct =>allProduct.map(item => item.id == productid.id ? {...item ,quantity: item.quantity - 1}
+                : item
+            ))
+         }
            
     } 
-   
+//    const total = setProductsInCard(allProduct => allProduct.reduce((acc,current) => acc + current.price * current.quantity,0))
    
     const fetchData = async () => {
         if (!loading) setLoading()
@@ -78,8 +96,8 @@ const Cards = () => {
 
     return (
         <>
-            <CardChopping products={productsInCard}   handleCardRemove={handleCardRemove}/>
-            <div className='flex-row  text-wrap flex -mt-96  m-4 gap-2 '>
+            <CardChopping products={productsInCard}   handleCardRemove={handleCardRemove} onQuantity={onQuantity}   />
+            <div className='flex-row  text-wrap flex -mt-96 w-[3000px] m-4 gap-2 '>
                 {/* <div className="text-center  font-medium ml-1/2">Products</div> */}
                 <div className="flex flex-wrap ml-20 -mt-10 p-20 boder-black w-[900px]  gap-4 ">
                     {data && Array.isArray(data) && data.map((product) => (
@@ -105,7 +123,7 @@ const Cards = () => {
 
 
                 </div>
-
+ 
 
 
             </div>
