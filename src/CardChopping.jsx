@@ -1,44 +1,64 @@
-import Cards from "./assets/Cards"
+const CardChopping = ({ products, handleCardRemove, total }) => {
+    return (
+        <div className="w-80 bg-gray-100 border rounded-lg p-4 mt-10 ml-auto">
 
-const CardChopping = ({products,handleCardRemove,total}) =>{
+            {/* HEADER */}
+            <h2 className="text-xl font-bold mb-4 text-center">
+                Carrello
+            </h2>
 
-   
-    
-   
+            {/* EMPTY STATE */}
+            {Array.isArray(products) && products.length === 0 ? (
+                <p className="text-center text-gray-500">
+                    Carrello vuoto
+                </p>
+            ) : (
+                <div className="space-y-4">
 
-    return(
-       
-       
-        <div className="border rounded bg-gray-100  p-40 w-40 mt-40 ml-[1000px]">
-             <div className="">
-            <h2 className="-mt-40 p-2 -ml-6 text-xl">Carrello</h2>
-        </div>
-        <div className="card-product">
-          
-            { 
-            // products.length < 0   ?
-            // (<span className="empty">Carrello Vuoto</span>) :
-            
-            
-     products && Array.isArray(products) &&  products.map(product =>(
-                <div className="flex" key={product.id}>
-                    <div className="w-10 -ml-40  p-4 ">
-                        <h2 className="mb-2">{product.title}</h2>
-                       <div className="flex">
-                          <span className="">Qtn:{product.quantity}</span>
-                        <span className=" ml-48">{product.price}$</span>
-                       </div>
-                    </div>
-                   <div className="ml-40 cursor-default mt-4 text-violet-500 px-4 py-0  h-7" onClick={()=>{handleCardRemove(product)}}> remouve</div>
-                   {/* <div className="mt-80 -ml-60 -mb-36">Total :$ {total.tofixed(2)} </div>  */}
+                    {/* PRODUCTS */}
+                    {products &&
+                        products.map((product) => (
+                            <div
+                                key={product.id}
+                                className="flex items-center justify-between bg-white p-2 rounded shadow"
+                            >
+
+                                {/* LEFT */}
+                                <div>
+                                    <h3 className="font-medium">
+                                        {product.title}
+                                    </h3>
+
+                                    <p className="text-sm text-gray-600">
+                                        Qty: {product.quantity}
+                                    </p>
+                                </div>
+
+                                {/* RIGHT */}
+                                <div className="text-right">
+                                    <p className="font-semibold">
+                                        {product.price}$
+                                    </p>
+
+                                    <button
+                                        onClick={() => handleCardRemove(product)}
+                                        className="text-red-500 text-sm mt-1"
+                                    >
+                                        remove
+                                    </button>
+                                </div>
+
+                            </div>
+                        ))}
                 </div>
-                
-            ))}
-        
-        </div> 
-        
+            )}
+
+            {/* TOTAL */}
+            <div className="mt-6 text-right font-bold">
+                Total: ${total}
+            </div>
         </div>
-   
-    )
-}
-export default CardChopping
+    );
+};
+
+export default CardChopping;
