@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 const ProductList = ({ addToCart, setOpenCart }) => {
-    const API_URL = "https://dummyjson.com/products";
+    // const API_URL = "https://dummyjson.com/products";
+    const API_URL = "http://localhost:3001/products";
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ const ProductList = ({ addToCart, setOpenCart }) => {
             if (!res.ok) throw new Error("API error");
 
             const data = await res.json();
-            setProducts(data.products);
+            setProducts(data);
         } catch (err) {
             setError(true);
         } finally {

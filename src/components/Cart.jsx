@@ -30,7 +30,7 @@ const Cart = ({
         ) : (
           products.map((product) => (
             <div
-              key={product.id}
+              key={product._Id}
               className="flex justify-between items-center bg-white border rounded-lg p-3 shadow-sm"
             >
               <div>
