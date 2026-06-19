@@ -16,3 +16,6 @@ mongodb+srv://main:<db_password>@main.ozf6uem.mongodb.net/?appName=main
 
 
 UrfqBQwQZ0CriaNh
+
+https://e-commerce-ex-alpha.vercel.app/
+https://e-commerce-ex.onrender.com

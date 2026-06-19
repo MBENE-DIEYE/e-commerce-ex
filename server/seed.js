@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 const Product = require("./models/Product");
 
-mongoose.connect("mongodb://127.0.0.1:27017/shopDB");
+const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/shopDB";
+mongoose.connect(mongoUri);
 
 async function seed() {
     try {
