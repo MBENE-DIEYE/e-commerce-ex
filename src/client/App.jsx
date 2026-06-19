@@ -4,7 +4,7 @@ import Cart from "../components/Cart";
 
 const App = () => {
   const [cart, setCart] = useState([]); /* per gestire lo stato del carrello e dei prodotti*/
-  const [openCart, setOpenCart] = useState(true);
+  const [openCart, setOpenCart] = useState(false);
 
   const BASE_URL = import.meta.env.VITE_API_URL || "http://localthost:3001"
 
@@ -65,7 +65,7 @@ const App = () => {
     <div className="flex">
 
       {/* PRODUCTS */}
-      <div className={`transition-all duration-300 flex-1 ${openCart ? "mr-96" : ""}`}>
+      <div className={`transition-all duration-300 flex-1 ${openCart ? "md:mr-96" : ""}`}>
         <ProductList
           addToCart={addToCart}
           setOpenCart={setOpenCart}
