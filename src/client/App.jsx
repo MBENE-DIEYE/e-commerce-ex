@@ -6,10 +6,12 @@ const App = () => {
   const [cart, setCart] = useState([]); /* per gestire lo stato del carrello e dei prodotti*/
   const [openCart, setOpenCart] = useState(true);
 
+  const BASE_URL = import.meta.env.VITE_API_URL || "http://localthost:3001"
+
   // ADD TO CART
   const addToCart = async (product) => {
     try {
-      await fetch("http://localhost:3001/cart", {
+      await fetch(`${BASE_URL}/cart`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

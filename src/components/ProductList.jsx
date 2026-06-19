@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 
 const ProductList = ({ addToCart, setOpenCart }) => {
     // const API_URL = "https://dummyjson.com/products";
-    const API_URL = "http://localhost:3001/products";
+    // const API_URL = "http://localhost:3001/products";
+    const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+    const API_URL = `${BASE_URL}/products`;
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
